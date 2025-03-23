@@ -12,7 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.myself.mytimerapp.navigation.NavManager
 import com.myself.mytimerapp.ui.theme.MyTimerAppTheme
+import com.myself.mytimerapp.viewModels.CronometroViewModel
 import com.myself.mytimerapp.viewModels.CronosViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,32 +23,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val cronosVM : CronosViewModel by viewModels()
+        val cronometroVM : CronometroViewModel by viewModels()
         enableEdgeToEdge()
         setContent {
             MyTimerAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                NavManager(cronometroVM, cronosVM)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyTimerAppTheme {
-        Greeting("Android")
-    }
-}
